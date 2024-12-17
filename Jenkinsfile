@@ -21,7 +21,7 @@ pipeline {
      stage('Build Node JS Docker Image') {
             steps {
                 script {
-                  sh 'docker build -t kushakumar/node-app-8.0 .'
+                  sh 'docker build -t kushakumar/node-app-9.0 .'
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
                  withCredentials([string(credentialsId: 'devopshintdocker', variable: 'devopshintdocker')]) {
                     sh 'docker login -u kushakumar -p ${devopshintdocker}'
             }
-            sh 'docker push kushakumar/node-app-7.0'
+            sh 'docker push kushakumar/node-app-9.0'
         }
             }   
         }
@@ -41,7 +41,7 @@ pipeline {
      stage('Deploying Node App to Kubernetes') {
       steps {
         script {
-          sh ('aws eks update-kubeconfig --name kusha --region ap-south-1')
+          sh ('aws eks update-kubeconfig --name mounasri --region ap-south-1')
           sh "kubectl get ns"
           sh "kubectl apply -f nodejsapp.yaml"
         }
